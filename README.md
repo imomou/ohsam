@@ -1,8 +1,10 @@
 # ohsam
 
-#### Welcome to this OhSam's App, it's an AWS infrastucture template for ECS Service works with many different Secret Information, and due to nature of the requirement, secrets are decided to be reside in infrastructure rather in repository
+#### Welcome to OhSam's App, it's an AWS infrastucture (cloudformation) template for ECS Service works with many different Secret Information, and due to nature of the requirement, secrets are decided to be reside in infrastructure rather in repository
 
 #### It's super simple to run this, simply just use cloudformation, and fill in the parameter values, however, before running this template, there're some base dependencies is needed. Please run follow following templates in sequence.
+
+#### The public/secrets and database information best not be part of the repostiory, as it is a lot easier to expose these kind of information rather than controlled by AWS IAM.
 
 1. logstore.template - provides stores for your base infrastructure e.g. flowlogs, billing, cloudtrails 
 2. vpc.template - your logical virtual private cloud dedicated to you, private networking, CIDR block works with your network 
@@ -32,8 +34,12 @@
 * ContainerPort: Port to map to
 * HealthUrl: health checks, to know whether your service is healthy or not, and rotate if it's not
 
-#### Service specifics
+#### Manual Steps
 
+* Upload Public key manually to S3, S3 it's more performent dealing with requests, especially client side.
 
+* Upload PGP private Key manually to PgpPrivateStore Parameter store.
+
+* Upload SSH private Key manually to SshPrivateStore Parameter store.
 
 
