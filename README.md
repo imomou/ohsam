@@ -1,10 +1,10 @@
 # ohsam
 
-Welcome to OhSam's App, it has an AWS infrastructure (cloudformation) template for ECS Service works with different Secret pieces of information, and due to nature of the requirement, secrets are decided to reside in infrastructure rather in the repository
+Welcome to OhSam's App, it has an AWS infrastructure (cloudformation) **app.template** for ECS Service works with different Secret pieces of information, and due to nature of the requirement, secrets are decided to reside in infrastructure rather in the repository
 
 The public/secrets and database information best not be part of the repository, as it is a lot easier to expose these kinds of information rather than controlled by AWS IAM.
 
-It's super simple to run this, simply just use AWS Cloudformation, and fill in the parameter values, however, before running this template, there're some base dependencies are needed. Please run follow the following templates in sequence.
+It's super simple to run this, simply just use AWS Cloudformation, and fill in the parameter values, however, before running this template, there are some base dependencies is needed. Please run follow the following templates in sequence.
 
 1. logstore.template - Provides stores for your base infrastructure e.g. flowlogs, billing, cloudtrails
 2. vpc.template - Your logical virtual private cloud dedicated to you, private networking, CIDR block works with your network 
@@ -21,7 +21,7 @@ It's super simple to run this, simply just use AWS Cloudformation, an
 
 #### Networks, foundations
 
-* VpcId: Please don't use the default VPC due to security reasons (public addresses), use the one vpc.template
+* VpcId: **Please don't use the default VPC due to security reasons** (public addresses), use the one vpc.template
 * EcsCluster: Name of EcsCluster
 * ElbTargetSecGroup: SecurityGroup Where ElbSecGroup can communicate, obtained from VPC output
 * ElbSecGroup: SecurityGroup for Loadbalancer
