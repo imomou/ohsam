@@ -1,20 +1,20 @@
 # ohsam
 
-Welcome to OhSam's App, it has an AWS infrastructure (cloudformation) **app.template** contains an ECS Service works with different Secret pieces of information, and due to nature of the requirement, secrets are decided to reside in infrastructure rather in the repository
+Welcome to OhSam'sApp, it has an AWS infrastructure (cloudformation) **app.template** contains an ECS Service works with different Secret pieces of information, and due to nature of the requirement, secrets are decided to reside in infrastructure rather in the repository
 
-The public/secrets and database information best not be part of the repository, as it is a lot easier to expose these kinds of information rather than controlled by AWS IAM.
+The public/secrets and database information best not be part of the repository, as it is a lot easier to expose these kinds of information rather than controlled by AWS IAM.
 
-It's super simple to run this, simply just use AWS Cloudformation, and fill in the parameter values, however, before running this template, there are some base dependencies is needed. Please run follow the following templates in sequence.
+It's super simple to run this, simply just use AWS Cloudformation, and fill in the parameter values, however, before running this template, there are some base dependencies is needed. Please run follow the following templates in sequence.
 
 
-1. logstore.template - Provides stores for your base infrastructure e.g. flowlogs, billing, cloudtrails
-2. vpc.template - Your logical virtual private cloud dedicated to you, private networking, CIDR block works with your network 
-3. public-out-subnets.template - Design to work with public-facing subnets/services such as NAT and ELB/ALBS.
-4. nat-gateway-subnets.template - NAT, translating private IP addresses
+1. logstore.template - Provides stores for your base infrastructure e.g. flowlogs, billing, cloudtrails
+2. vpc.template - Your logical virtual private cloud dedicated to you, private networking, CIDR block works with your network 
+3. public-out-subnets.template - Design to work with public-facing subnets/services such as NAT and ELB/ALBS.
+4. nat-gateway-subnets.template - NAT, translating private IP addresses
 5. nat-subnets.template
 6. elb-subnets.template
 7. ecs-base.template - ECS cluster, where your container hosted in a logical group
-8. loadbalancer.template - Loadlbancer, direct traffic to your targets, servers
+8. loadbalancer.template - Loadlbancer, direct traffic to your targets, servers
 
 #### Note, it all can be automated from [bit.clouded](https://app.bitclouded.io/)
 
@@ -45,8 +45,8 @@ It's super simple to run this, simply just use AWS Cloudformation, an
 
 ### Resources Explained
 
-* Stores: Where secret goes, both public keys go on S3 AppBucket, S3 it's more performant, especially client-side and also coupled, if OAuth Authentication is to happen, requesting for authentication
-* Service: Service-specific resources, where ECS task, service, its associated IAM permission defined.
+* Stores: Where secret goes, both public keys go on S3 AppBucket, S3 it's more performant, especially client-side and also coupled, if OAuth Authentication is to happen, requesting for authentication
+* Service: Service-specific resources, where ECS task, service, its associated IAM permission defined.
 * Scalings and desired tasks: desired number of instance for service, and its alarms and scaling rules
 
 ### Manual Steps
