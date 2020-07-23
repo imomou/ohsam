@@ -26,7 +26,13 @@
 * WebServerSubnets: Subnet where your ECS resides and can be reacheable from Loadbalancer
 
 #### Service specifics
-  
+
+* Environment: Application Environment, for application to know which environment is it, and which appsettings to use
+* ImageName: Docker Image
+* ContainerPort: Port to map to
+* HealthUrl: health checks, to know whether your service is healthy or not, and rotate if it's not
+
+#### Service specifics
 
 
 
