@@ -1,19 +1,19 @@
 # ohsam
 
-#### Welcome to OhSam's App, it's an AWS infrastucture (cloudformation) template for ECS Service works with many different Secret Information, and due to nature of the requirement, secrets are decided to be reside in infrastructure rather in repository
+#### Welcome to OhSam's App, it has an AWS infrastructure (cloudformation) template for ECS Service works with different Secret pieces of information, and due to nature of the requirement, secrets are decided to reside in infrastructure rather in the repository
 
-#### The public/secrets and database information best not be part of the repostiory, as it is a lot easier to expose these kind of information rather than controlled by AWS IAM.
+#### The public/secrets and database information best not be part of the repository, as it is a lot easier to expose these kinds of information rather than controlled by AWS IAM.
 
-#### It's super simple to run this, simply just use cloudformation, and fill in the parameter values, however, before running this template, there're some base dependencies is needed. Please run follow following templates in sequence.
+#### It's super simple to run this, simply just use AWS Cloudformation, and fill in the parameter values, however, before running this template, there're some base dependencies are needed. Please run follow the following templates in sequence.
 
-1. logstore.template - provides stores for your base infrastructure e.g. flowlogs, billing, cloudtrails 
-2. vpc.template - your logical virtual private cloud dedicated to you, private networking, CIDR block works with your network 
-3. public-out-subnets.template - design to work with public facing subnets/service such as NAT and ELB/ALBS.
-4. nat-gateway-subnets.template - nat, translating private IP addresses
+1. logstore.template - Provides stores for your base infrastructure e.g. flowlogs, billing, cloudtrails
+2. vpc.template - Your logical virtual private cloud dedicated to you, private networking, CIDR block works with your network 
+3. public-out-subnets.template - Design to work with public-facing subnets/services such as NAT and ELB/ALBS.
+4. nat-gateway-subnets.template - NAT, translating private IP addresses
 5. nat-subnets.template
 6. elb-subnets.template
-7. ecs-base.template - where your ecs cluster is.
-8. loadbalancer.template - loadlbancer, direct traffic to your targets, servers
+7. ecs-base.template - ECS cluster, where your container hosted in a logical group
+8. loadbalancer.template - Loadlbancer, direct traffic to your targets, servers
 
 #### Note, it all can be automated from [bit.clouded](https://app.bitclouded.io/)
 
@@ -21,10 +21,10 @@
 
 #### Networks, foundations
 
-* VpcId: Please don't use the default VPC due to security reasons (public addresses), use the vpc.template
+* VpcId: Please don't use the default VPC due to security reasons (public addresses), use the one vpc.template
 * EcsCluster: Name of EcsCluster
 * ElbTargetSecGroup: SecurityGroup Where ElbSecGroup can communicate, obtained from VPC output
-* ElbSecGroup: SecurityGroup of Loadbalancer
+* ElbSecGroup: SecurityGroup for Loadbalancer
 * WebServerSubnets: Subnet where your ECS resides and can be reacheable from Loadbalancer
 
 #### Service specifics
@@ -34,12 +34,25 @@
 * ContainerPort: Port to map to
 * HealthUrl: health checks, to know whether your service is healthy or not, and rotate if it's not
 
-#### Manual Steps
+#### Loadbalancer Targets, DNS
 
-* Upload Public key manually to S3, S3 it's more performent dealing with requests, especially client side.
+* GatewayCanonicalZoneId: Loadbalancer's HostedZone ID
+* GatewayDnsName: A record of Loadbalancer
+* GatewayName: /app/<Name Of Loadbalancer>
+* HttpsListener: ARN of ListenerId
+* ListenerPriority: any number that's not repeated on Listener Rule
 
+### Resources Explained
+
+* Stores: Where secret goes, both public keys go on S3 AppBucket, S3 it's more performant, especially client-side and also coupled, if OAuth Authentication is to happen, requesting for authentication
+* Service: Service-specific resources, where ECS task, service, its associated IAM permission defined.
+* Scalings and desired tasks: desired number of instance for service, and its alarms and scaling rules
+
+### Manual Steps
+
+* Upload Public key manually to S3
 * Upload PGP private Key manually to PgpPrivateStore Parameter store.
-
 * Upload SSH private Key manually to SshPrivateStore Parameter store.
+
 
 
