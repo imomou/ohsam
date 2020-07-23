@@ -1,6 +1,6 @@
 # ohsam
 
-#### Welcome to this OhSam's App, it's a ECS Service works with many different Secret Information, and due to nature of the requirement, secrets are decided to be reside in infrastructure rather in repository
+#### Welcome to this OhSam's App, it's an AWS infrastucture template for ECS Service works with many different Secret Information, and due to nature of the requirement, secrets are decided to be reside in infrastructure rather in repository
 
 #### It's super simple to run this, simply just use cloudformation, and fill in the parameter values, however, before running this template, there're some base dependencies is needed. Please run follow following templates in sequence.
 
@@ -13,10 +13,21 @@
 7. ecs-base.template - where your ecs cluster is.
 8. loadbalancer.template - loadlbancer, direct traffic to your targets, servers
 
-#### Parameters Explained
+#### Note, it all can be automated from [bit.clouded](https://app.bitclouded.io/)
 
-* VpcId: Please don't use the default VPC due to security reasons(public addresses), use the vpc.template
+### Parameters Explained
 
-* 
+#### Networks, foundations
+
+* VpcId: Please don't use the default VPC due to security reasons (public addresses), use the vpc.template
+* EcsCluster: Name of EcsCluster
+* ElbTargetSecGroup: SecurityGroup Where ElbSecGroup can communicate, obtained from VPC output
+* ElbSecGroup: SecurityGroup of Loadbalancer
+* WebServerSubnets: Subnet where your ECS resides and can be reacheable from Loadbalancer
+
+#### Service specifics
+  
+
+
 
 
