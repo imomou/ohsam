@@ -119,9 +119,18 @@ Resources:
   DatabaseInfoStore:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      #SecureString not supported
       Type: StringList
       Value: !Sub "DbEndpoint:${DatabaseEndpoint},DbName:${DatabaseName},DbPort:${DatabasePort},DbUser:${DbUsername},DbPassword:${DbPassword}"
+  PgpPrivateStore:
+    Type: 'AWS::SSM::Parameter'
+    Properties:
+      Type: String
+      Value: 'dummy-please-upload-manually'
+  SshPrivateStore:
+    Type: 'AWS::SSM::Parameter'
+    Properties:
+      Type: String
+      Value: 'dummy-please-upload-manually'
   # / Stores
  
   # Service
@@ -176,6 +185,8 @@ Resources:
                 Action: ['ssm:GetParameter']
                 Resource: 
                   - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${ApiAuthStore}*'
+                  - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${DatabaseInfoStore}*'
+                  - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${PgpPrivateStore}*'
                   - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${DatabaseInfoStore}*'
   Bucketolicies:
     Type: 'AWS::IAM::Policy'
@@ -239,6 +250,10 @@ Resources:
               Value: !Ref DatabaseInfoStore
             - Name: CFN_APPBUCKET
               Value: !Ref AppBucket
+            - Name: CFN_PGPSTORE
+              Value: !Ref PgpPrivateStore
+            - Name: CFN_SSHSTORE
+              Value: !Ref SshPrivateStore
           PortMappings:
             - ContainerPort: !Ref ContainerPort
       NetworkMode: awsvpc
