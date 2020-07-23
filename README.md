@@ -55,5 +55,8 @@ It's super simple to run this, simply just use AWS Cloudformation, an
 * Upload PGP private Key manually to PgpPrivateStore Parameter store.
 * Upload SSH private Key manually to SshPrivateStore Parameter store.
 
+### Integration
+
+The App/Service itself can simply read the environment variables and be able to know where secrets located, with appropriate permissions set as part of the template
 
 
