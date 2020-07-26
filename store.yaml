@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  DefaultName: store
+  
+Parameters:
+
+  # Database Informations
+  DatabaseEndpoint:
+    Description: Database Server Endpoint
+    Type: String
+  DatabaseName:
+    Description: Database Name
+    Type: String
+    Default: oh
+  DatabasePort:
+    Description: Database Name
+    Type: String
+    Default: 1443
+  DatabaseUsername:
+    Description: Database Server username
+    Type: String
+    Default: sqladmin
+  DatabasePassword:
+    Description: Database Server password
+    Type: String
+    NoEcho: 'True'
+  # / Database Informations  
+
+  # Application Configs and Secrets
+  ApiUsername:
+    Description: Api Username
+    Type: String
+  ApiPassword:
+    Description: Api Password
+    Type: String
+    NoEcho: 'True'
+  # / Application Configs and Secrets
+
+Resources:
+  #AWS::StackName construct doesn't seems to be working for localstack
+
+  ApiAuthStore:
+    Type: 'AWS::SecretsManager::Secret'
+    Properties:
+      Name: !Sub '${AWS::StackName}-ApiAuthStore'
+      Description: StoreSecrets
+      SecretString: !Sub '{"user:${ApiUsername},key:${ApiPassword}"}'
+
+  DatbaseStore:
+    Type: 'AWS::SecretsManager::Secret'
+    Properties:
+      Name: !Sub '${AWS::StackName}-DatabaseStore'
+      Description: StoreSecrets
+      SecretString: !Sub '{"dbendpoint:${DatabaseEndpoint},dbname:${DatabaseName},dbport:${DatabasePort},dbuser:${DatabaseUsername},dbpassword:${DatabasePassword}"}'
