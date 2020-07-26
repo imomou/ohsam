@@ -54,14 +54,14 @@ Resources:
     Type: 'AWS::SecretsManager::Secret'
     Properties:
       Name: !Sub '${AWS::StackName}-ApiAuthStore'
-      Description: StoreSecrets
+      Description: Store ApiAuth Information
       SecretString: !Sub '{"user:${ApiUsername},key:${ApiPassword}"}'
 
   DatbaseStore:
     Type: 'AWS::SecretsManager::Secret'
     Properties:
       Name: !Sub '${AWS::StackName}-DatabaseStore'
-      Description: StoreSecrets
+      Description: Store Datbase Information
       SecretString: !Sub '{"dbendpoint:${DatabaseEndpoint},dbname:${DatabaseName},dbport:${DatabasePort},dbuser:${DatabaseUsername},dbpassword:${DatabasePassword}"}'
 
   PgpKeyStore:
@@ -77,3 +77,14 @@ Resources:
       Name: !Sub '${AWS::StackName}-SshKeyStore'
       Description: Fore Storing SshKey
       SecretString: !Ref SshKey
+
+  StoresPolicies:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      Groups: []
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: ['"secretsmanager:Describe*","secretsmanager:Get*","secretsmanager:List*" ']
+            Resource: [!Ref SshKeyStore, !Ref PgpKeyStore, !Ref DatbaseStore, !Ref ApiAuthStore]
