@@ -1,6 +1,6 @@
 # ohsam
 
-Welcome to OhSam'sApp, it has an AWS infrastructure (cloudformation) **store.template** contains secretsmanager for 4 different logical secrets and an IAM managed policies for service role or user to use.
+Welcome to OhSam'sApp, it has an AWS infrastructure (cloudformation) **store.template** contains secretsmanager for 4 different logical secrets and an IAM managed policies for IAM role or user to use.
 
 ### Prerequisites
 
