@@ -36,6 +36,17 @@ Parameters:
     NoEcho: 'True'
   # / Application Configs and Secrets
 
+  # Keys
+  PpkKey:
+    Description: Api Username
+    Type: String
+    NoEcho: 'True'
+  SshKey:
+    Description: Api Password
+    Type: String
+    NoEcho: 'True'
+  # / Keys
+
 Resources:
   #AWS::StackName construct doesn't seems to be working for localstack
 
@@ -52,3 +63,17 @@ Resources:
       Name: !Sub '${AWS::StackName}-DatabaseStore'
       Description: StoreSecrets
       SecretString: !Sub '{"dbendpoint:${DatabaseEndpoint},dbname:${DatabaseName},dbport:${DatabasePort},dbuser:${DatabaseUsername},dbpassword:${DatabasePassword}"}'
+
+  PgpKeyStore:
+    Type: 'AWS::SecretsManager::Secret'
+    Properties:
+      Name: !Sub '${AWS::StackName}-PgpKeyStore'
+      Description: For Storing PpkKey 
+      SecretString: !Ref PpkKey
+
+  SshKeyStore:
+    Type: 'AWS::SecretsManager::Secret'
+    Properties:
+      Name: !Sub '${AWS::StackName}-SshKeyStore'
+      Description: Fore Storing SshKey
+      SecretString: !Ref SshKey
