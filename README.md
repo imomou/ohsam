@@ -11,4 +11,8 @@ aws 1.18 >
 ``` apt-get pip --upgrade awscli ```
 
 awslocal
-``` install awscli-local ```
+``` apt-get install awscli-local ```
+
+### Instructions
+
+In deploy.sh, fill in the variables, and have the pgp key and ssh key in the root location, then simply run ./deploy.sh script, it should generate a set of secerets in your local environment with help from localstack.
